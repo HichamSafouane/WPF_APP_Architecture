@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5AA4E1D5-F889-41F4-8877-74ACDDDD05B0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestConsole</RootNamespace>
+    <AssemblyName>TestConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Prism\AggregateCatalog.cs" />
+    <Compile Include="Prism\AllActiveRegion.cs" />
+    <Compile Include="Prism\AssemblyResolver.cs" />
+    <Compile Include="Prism\AttributedModelServices.cs" />
+    <Compile Include="Prism\AutoPopulateRegionBehavior.cs" />
+    <Compile Include="Prism\BindRegionContextToDependencyObjectBehavior.cs" />
+    <Compile Include="Prism\Bootstrapper.cs" />
+    <Compile Include="Prism\ClearChildViewsRegionBehavior.cs" />
+    <Compile Include="Prism\Collection`1.cs" />
+    <Compile Include="Prism\ComposablePartCatalog.cs" />
+    <Compile Include="Prism\ComposablePartDefinition.cs" />
+    <Compile Include="Prism\ConfigurationModuleCatalog.cs" />
+    <Compile Include="Prism\ContentControlRegionAdapter.cs" />
+    <Compile Include="Prism\DelayedRegionCreationBehavior.cs" />
+    <Compile Include="Prism\DirectoryModuleCatalog.cs" />
+    <Compile Include="Prism\File.cs" />
+    <Compile Include="Prism\GridViewColumn.cs" />
+    <Compile Include="Prism\IConfigurationStore.cs" />
+    <Compile Include="Prism\IConfirmNavigationRequest.cs" />
+    <Compile Include="Prism\IEventAggregator.cs" />
+    <Compile Include="Prism\IHostAwareRegionBehavior.cs" />
+    <Compile Include="Prism\IModule.cs" />
+    <Compile Include="Prism\IModuleCatalog.cs" />
+    <Compile Include="Prism\IModuleInitializer.cs" />
+    <Compile Include="Prism\INavigateAsync.cs" />
+    <Compile Include="Prism\INavigationAware.cs" />
+    <Compile Include="Prism\InstrumentConfiguration.cs" />
+    <Compile Include="Prism\IRegion.cs" />
+    <Compile Include="Prism\IRegionAdapter.cs" />
+    <Compile Include="Prism\IRegionBehavior.cs" />
+    <Compile Include="Prism\IRegionBehaviorCollection.cs" />
+    <Compile Include="Prism\IRegionBehaviorFactory.cs" />
+    <Compile Include="Prism\IRegionManager.cs" />
+    <Compile Include="Prism\IRegionManagerAccessor.cs" />
+    <Compile Include="Prism\IRegionMemberLifetime.cs" />
+    <Compile Include="Prism\IRegionNavigationContentLoader.cs" />
+    <Compile Include="Prism\IRegionNavigationJournal.cs" />
+    <Compile Include="Prism\IRegionNavigationJournalEntry.cs" />
+    <Compile Include="Prism\IRegionNavigationService.cs" />
+    <Compile Include="Prism\IRegionViewRegistry.cs" />
+    <Compile Include="Prism\ItemMetadata.cs" />
+    <Compile Include="Prism\ItemsControl.cs" />
+    <Compile Include="Prism\ItemsControlRegionAdapter.cs" />
+    <Compile Include="Prism\ItemsPanelTemplate.cs" />
+    <Compile Include="Prism\IViewsCollection.cs" />
+    <Compile Include="Prism\ModuleCatalog.cs" />
+    <Compile Include="Prism\NavigationAsyncExtensions.cs" />
+    <Compile Include="Prism\NavigationContext.cs" />
+    <Compile Include="Prism\NavigationParameters.cs" />
+    <Compile Include="Prism\NavigationResult.cs" />
+    <Compile Include="Prism\PropertyChangedEventArgs.cs" />
+    <Compile Include="Prism\PropertyInfo.cs" />
+    <Compile Include="Prism\Region.cs" />
+    <Compile Include="Prism\RegionActiveAwareBehavior.cs" />
+    <Compile Include="Prism\RegionAdapterBase`1.cs" />
+    <Compile Include="Prism\RegionAdapterMappings.cs" />
+    <Compile Include="Prism\RegionBehavior.cs" />
+    <Compile Include="Prism\RegionBehaviorCollection.cs" />
+    <Compile Include="Prism\RegionBehaviorFactory.cs" />
+    <Compile Include="Prism\RegionContext.cs" />
+    <Compile Include="Prism\RegionCreationException.cs" />
+    <Compile Include="Prism\RegionManager.cs" />
+    <Compile Include="Prism\RegionManagerRegistrationBehavior.cs" />
+    <Compile Include="Prism\RegionMemberLifetimeBehavior.cs" />
+    <Compile Include="Prism\RegionNavigationJournal.cs" />
+    <Compile Include="Prism\RegionNavigationJournalEntry.cs" />
+    <Compile Include="Prism\RegionNavigationService.cs" />
+    <Compile Include="Prism\RegionViewRegistry.cs" />
+    <Compile Include="Prism\SelectorItemsSourceSyncBehavior.cs" />
+    <Compile Include="Prism\SelectorRegionAdapter.cs" />
+    <Compile Include="Prism\SingleActiveRegion.cs" />
+    <Compile Include="Prism\SyncActiveStateAttribute.cs" />
+    <Compile Include="Prism\SyncRegionContextWithHostBehavior.cs" />
+    <Compile Include="Prism\UpdateRegionsException.cs" />
+    <Compile Include="Prism\ViewRegisteredEventArgs.cs" />
+    <Compile Include="Prism\ViewRegistrationException.cs" />
+    <Compile Include="Prism\ViewsCollection.cs" />
+    <Compile Include="Prism\ViewSortHintAttribute.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

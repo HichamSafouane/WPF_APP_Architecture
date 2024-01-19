@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FreelancerHiringModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="60" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostalCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compagny">
+          <Key>
+            <PropertyRef Name="CompagnyID" />
+          </Key>
+          <Property Name="CompagnyID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Freelancer">
+          <Key>
+            <PropertyRef Name="FreelancerID" />
+          </Key>
+          <Property Name="FreelancerID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SkillID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="image" />
+        </EntityType>
+        <EntityType Name="HiringOffer">
+          <Key>
+            <PropertyRef Name="HiringBusinessID" />
+          </Key>
+          <Property Name="HiringBusinessID" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="EmployeeInChargeID" Type="int" Nullable="false" />
+          <Property Name="HiringRequestID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HiringOfferEmployee">
+          <Key>
+            <PropertyRef Name="HiringBussinessID" />
+            <PropertyRef Name="FreelancerID" />
+          </Key>
+          <Property Name="HiringBussinessID" Type="int" Nullable="false" />
+          <Property Name="FreelancerID" Type="int" Nullable="false" />
+          <Property Name="HourlyRate" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HiringRequest">
+          <Key>
+            <PropertyRef Name="HiringBusinessID" />
+          </Key>
+          <Property Name="HiringBusinessID" Type="int" Nullable="false" />
+          <Property Name="CompagnyID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="RequiredSkill" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="3850" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Compagny_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Compagny" Type="Self.Compagny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Compagny">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freelancer_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Freelancer" Type="Self.Freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Freelancer">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freelancer_Skill">
+          <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+          <End Role="Freelancer" Type="Self.Freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Freelancer">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringOffer_HiringRequest">
+          <End Role="HiringRequest" Type="Self.HiringRequest" Multiplicity="1" />
+          <End Role="HiringOffer" Type="Self.HiringOffer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HiringRequest">
+              <PropertyRef Name="HiringBusinessID" />
+            </Principal>
+            <Dependent Role="HiringOffer">
+              <PropertyRef Name="HiringBusinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringOffer_HiringRequest1">
+          <End Role="HiringRequest" Type="Self.HiringRequest" Multiplicity="1" />
+          <End Role="HiringOffer" Type="Self.HiringOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HiringRequest">
+              <PropertyRef Name="HiringBusinessID" />
+            </Principal>
+            <Dependent Role="HiringOffer">
+              <PropertyRef Name="HiringRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringOfferEmployee_Freelancer">
+          <End Role="Freelancer" Type="Self.Freelancer" Multiplicity="1" />
+          <End Role="HiringOfferEmployee" Type="Self.HiringOfferEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freelancer">
+              <PropertyRef Name="FreelancerID" />
+            </Principal>
+            <Dependent Role="HiringOfferEmployee">
+              <PropertyRef Name="FreelancerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringOfferEmployee_HiringOffer">
+          <End Role="HiringOffer" Type="Self.HiringOffer" Multiplicity="1" />
+          <End Role="HiringOfferEmployee" Type="Self.HiringOfferEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HiringOffer">
+              <PropertyRef Name="HiringBusinessID" />
+            </Principal>
+            <Dependent Role="HiringOfferEmployee">
+              <PropertyRef Name="HiringBussinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringRequest_Compagny">
+          <End Role="Compagny" Type="Self.Compagny" Multiplicity="1" />
+          <End Role="HiringRequest" Type="Self.HiringRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagny">
+              <PropertyRef Name="CompagnyID" />
+            </Principal>
+            <Dependent Role="HiringRequest">
+              <PropertyRef Name="CompagnyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FreelancerHiringModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compagny" EntityType="Self.Compagny" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Freelancer" EntityType="Self.Freelancer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HiringOffer" EntityType="Self.HiringOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HiringOfferEmployee" EntityType="Self.HiringOfferEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HiringRequest" EntityType="Self.HiringRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Compagny_Address" Association="Self.FK_Compagny_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Compagny" EntitySet="Compagny" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freelancer_Address" Association="Self.FK_Freelancer_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Freelancer" EntitySet="Freelancer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freelancer_Skill" Association="Self.FK_Freelancer_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Freelancer" EntitySet="Freelancer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOffer_HiringRequest" Association="Self.FK_HiringOffer_HiringRequest">
+            <End Role="HiringRequest" EntitySet="HiringRequest" />
+            <End Role="HiringOffer" EntitySet="HiringOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOffer_HiringRequest1" Association="Self.FK_HiringOffer_HiringRequest1">
+            <End Role="HiringRequest" EntitySet="HiringRequest" />
+            <End Role="HiringOffer" EntitySet="HiringOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOfferEmployee_Freelancer" Association="Self.FK_HiringOfferEmployee_Freelancer">
+            <End Role="Freelancer" EntitySet="Freelancer" />
+            <End Role="HiringOfferEmployee" EntitySet="HiringOfferEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOfferEmployee_HiringOffer" Association="Self.FK_HiringOfferEmployee_HiringOffer">
+            <End Role="HiringOffer" EntitySet="HiringOffer" />
+            <End Role="HiringOfferEmployee" EntitySet="HiringOfferEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringRequest_Compagny" Association="Self.FK_HiringRequest_Compagny">
+            <End Role="Compagny" EntitySet="Compagny" />
+            <End Role="HiringRequest" EntitySet="HiringRequest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FreelancerHiringModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="HiringRequest">
+          <Key>
+            <PropertyRef Name="HiringBusinessID" />
+          </Key>
+          <Property Name="HiringBusinessID" Type="Int32" Nullable="false" />
+          <Property Name="CompagnyID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequiredSkill" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="3850" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Compagny" Relationship="FreelancerHiringModel.FK_HiringRequest_Compagny" FromRole="HiringRequest" ToRole="Compagny" />
+          <NavigationProperty Name="HiringOffer1" Relationship="FreelancerHiringModel.FK_HiringOffer_HiringRequest1" FromRole="HiringRequest" ToRole="HiringOffer" />
+        </EntityType>
+        <EntityContainer Name="FreelancerHiringEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="HiringRequest" EntityType="Self.HiringRequest" />
+          <EntitySet Name="Skill" EntityType="FreelancerHiringModel.Skill" />
+          <EntitySet Name="Address" EntityType="FreelancerHiringModel.Address" />
+          <EntitySet Name="Freelancer" EntityType="FreelancerHiringModel.Freelancer" />
+          <AssociationSet Name="FK_Freelancer_Address" Association="FreelancerHiringModel.FK_Freelancer_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Freelancer" EntitySet="Freelancer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freelancer_Skill" Association="FreelancerHiringModel.FK_Freelancer_Skill">
+            <End Role="Skill" EntitySet="Skill" />
+            <End Role="Freelancer" EntitySet="Freelancer" />
+          </AssociationSet>
+          <EntitySet Name="Compagny" EntityType="FreelancerHiringModel.Compagny" />
+          <AssociationSet Name="FK_Compagny_Address" Association="FreelancerHiringModel.FK_Compagny_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Compagny" EntitySet="Compagny" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringRequest_Compagny" Association="FreelancerHiringModel.FK_HiringRequest_Compagny">
+            <End Role="Compagny" EntitySet="Compagny" />
+            <End Role="HiringRequest" EntitySet="HiringRequest" />
+          </AssociationSet>
+          <EntitySet Name="HiringOfferEmployee" EntityType="FreelancerHiringModel.HiringOfferEmployee" />
+          <AssociationSet Name="FK_HiringOfferEmployee_Freelancer" Association="FreelancerHiringModel.FK_HiringOfferEmployee_Freelancer">
+            <End Role="Freelancer" EntitySet="Freelancer" />
+            <End Role="HiringOfferEmployee" EntitySet="HiringOfferEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOffer_HiringRequest1" Association="FreelancerHiringModel.FK_HiringOffer_HiringRequest1">
+            <End Role="HiringRequest" EntitySet="HiringRequest" />
+            <End Role="HiringOffer" EntitySet="HiringRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HiringOfferEmployee_HiringOffer" Association="FreelancerHiringModel.FK_HiringOfferEmployee_HiringOffer">
+            <End Role="HiringOffer" EntitySet="HiringRequest" />
+            <End Role="HiringOfferEmployee" EntitySet="HiringOfferEmployee" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Freelancer" Relationship="FreelancerHiringModel.FK_Freelancer_Skill" FromRole="Skill" ToRole="Freelancer" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Freelancer" Relationship="FreelancerHiringModel.FK_Freelancer_Address" FromRole="Address" ToRole="Freelancer" />
+          <NavigationProperty Name="Compagny" Relationship="FreelancerHiringModel.FK_Compagny_Address" FromRole="Address" ToRole="Compagny" />
+        </EntityType>
+        <EntityType Name="Freelancer">
+          <Key>
+            <PropertyRef Name="FreelancerID" />
+          </Key>
+          <Property Name="FreelancerID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SkillID" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="FreelancerHiringModel.FK_Freelancer_Address" FromRole="Freelancer" ToRole="Address" />
+          <NavigationProperty Name="Skill" Relationship="FreelancerHiringModel.FK_Freelancer_Skill" FromRole="Freelancer" ToRole="Skill" />
+          <NavigationProperty Name="HiringOfferEmployee" Relationship="FreelancerHiringModel.FK_HiringOfferEmployee_Freelancer" FromRole="Freelancer" ToRole="HiringOfferEmployee" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Freelancer_Address">
+          <End Type="FreelancerHiringModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.Freelancer" Role="Freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Freelancer">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freelancer_Skill">
+          <End Type="FreelancerHiringModel.Skill" Role="Skill" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.Freelancer" Role="Freelancer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="Freelancer">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Compagny">
+          <Key>
+            <PropertyRef Name="CompagnyID" />
+          </Key>
+          <Property Name="CompagnyID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressID" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="FreelancerHiringModel.FK_Compagny_Address" FromRole="Compagny" ToRole="Address" />
+          <NavigationProperty Name="HiringRequest" Relationship="FreelancerHiringModel.FK_HiringRequest_Compagny" FromRole="Compagny" ToRole="HiringRequest" />
+        </EntityType>
+        <Association Name="FK_Compagny_Address">
+          <End Type="FreelancerHiringModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.Compagny" Role="Compagny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Compagny">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringRequest_Compagny">
+          <End Type="FreelancerHiringModel.Compagny" Role="Compagny" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.HiringRequest" Role="HiringRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagny">
+              <PropertyRef Name="CompagnyID" />
+            </Principal>
+            <Dependent Role="HiringRequest">
+              <PropertyRef Name="CompagnyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HiringOfferEmployee">
+          <Key>
+            <PropertyRef Name="HiringBussinessID" />
+            <PropertyRef Name="FreelancerID" />
+          </Key>
+          <Property Name="HiringBussinessID" Type="Int32" Nullable="false" />
+          <Property Name="FreelancerID" Type="Int32" Nullable="false" />
+          <Property Name="HourlyRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Freelancer" Relationship="FreelancerHiringModel.FK_HiringOfferEmployee_Freelancer" FromRole="HiringOfferEmployee" ToRole="Freelancer" />
+          <NavigationProperty Name="HiringOffer" Relationship="FreelancerHiringModel.FK_HiringOfferEmployee_HiringOffer" FromRole="HiringOfferEmployee" ToRole="HiringOffer" />
+        </EntityType>
+        <Association Name="FK_HiringOfferEmployee_Freelancer">
+          <End Type="FreelancerHiringModel.Freelancer" Role="Freelancer" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.HiringOfferEmployee" Role="HiringOfferEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freelancer">
+              <PropertyRef Name="FreelancerID" />
+            </Principal>
+            <Dependent Role="HiringOfferEmployee">
+              <PropertyRef Name="FreelancerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HiringOffer" BaseType="FreelancerHiringModel.HiringRequest">
+          <Property Name="Discount" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeInChargeID" Type="Int32" Nullable="false" />
+          <Property Name="HiringRequestID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HiringRequest1" Relationship="FreelancerHiringModel.FK_HiringOffer_HiringRequest1" FromRole="HiringOffer" ToRole="HiringRequest" />
+          <NavigationProperty Name="HiringOfferEmployee" Relationship="FreelancerHiringModel.FK_HiringOfferEmployee_HiringOffer" FromRole="HiringOffer" ToRole="HiringOfferEmployee" />
+        </EntityType>
+        <Association Name="FK_HiringOffer_HiringRequest1">
+          <End Type="FreelancerHiringModel.HiringRequest" Role="HiringRequest" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.HiringOffer" Role="HiringOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HiringRequest">
+              <PropertyRef Name="HiringBusinessID" />
+            </Principal>
+            <Dependent Role="HiringOffer">
+              <PropertyRef Name="HiringRequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HiringOfferEmployee_HiringOffer">
+          <End Type="FreelancerHiringModel.HiringOffer" Role="HiringOffer" Multiplicity="1" />
+          <End Type="FreelancerHiringModel.HiringOfferEmployee" Role="HiringOfferEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HiringOffer">
+              <PropertyRef Name="HiringBusinessID" />
+            </Principal>
+            <Dependent Role="HiringOfferEmployee">
+              <PropertyRef Name="HiringBussinessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FreelancerHiringModelStoreContainer" CdmEntityContainer="FreelancerHiringEntities">
+          <EntitySetMapping Name="HiringRequest">
+            <EntityTypeMapping TypeName="IsTypeOf(FreelancerHiringModel.HiringRequest)">
+              <MappingFragment StoreEntitySet="HiringRequest">
+                <ScalarProperty Name="HiringBusinessID" ColumnName="HiringBusinessID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="RequiredSkill" ColumnName="RequiredSkill" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CompagnyID" ColumnName="CompagnyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(FreelancerHiringModel.HiringOffer)">
+              <MappingFragment StoreEntitySet="HiringOffer">
+                <ScalarProperty Name="HiringBusinessID" ColumnName="HiringBusinessID" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="EmployeeInChargeID" ColumnName="EmployeeInChargeID" />
+                <ScalarProperty Name="HiringRequestID" ColumnName="HiringRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skill">
+            <EntityTypeMapping TypeName="FreelancerHiringModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="FreelancerHiringModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freelancer">
+            <EntityTypeMapping TypeName="FreelancerHiringModel.Freelancer">
+              <MappingFragment StoreEntitySet="Freelancer">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FreelancerID" ColumnName="FreelancerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compagny">
+            <EntityTypeMapping TypeName="FreelancerHiringModel.Compagny">
+              <MappingFragment StoreEntitySet="Compagny">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompagnyID" ColumnName="CompagnyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HiringOfferEmployee">
+            <EntityTypeMapping TypeName="FreelancerHiringModel.HiringOfferEmployee">
+              <MappingFragment StoreEntitySet="HiringOfferEmployee">
+                <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
+                <ScalarProperty Name="FreelancerID" ColumnName="FreelancerID" />
+                <ScalarProperty Name="HiringBussinessID" ColumnName="HiringBussinessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

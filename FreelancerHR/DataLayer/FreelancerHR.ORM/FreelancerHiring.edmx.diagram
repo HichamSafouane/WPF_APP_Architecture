@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6af7056c821b4dee89e0e6a07adff613" Name="Diagram1">
+        <EntityTypeShape EntityType="FreelancerHiringModel.HiringRequest" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.Skill" Width="1.5" PointX="3.875" PointY="6.25" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.Address" Width="1.5" PointX="8.375" PointY="4.75" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.Freelancer" Width="1.5" PointX="6" PointY="3" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_Freelancer_Address" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_Freelancer_Skill" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.Compagny" Width="1.5" PointX="10.625" PointY="4.875" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_Compagny_Address" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_HiringRequest_Compagny" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.HiringOfferEmployee" Width="1.5" PointX="8.25" PointY="1.875" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_HiringOfferEmployee_Freelancer" />
+        <EntityTypeShape EntityType="FreelancerHiringModel.HiringOffer" Width="1.5" PointX="1.25" PointY="4.25" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_HiringOffer_HiringRequest1" />
+        <AssociationConnector Association="FreelancerHiringModel.FK_HiringOfferEmployee_HiringOffer" />
+        <InheritanceConnector EntityType="FreelancerHiringModel.HiringOffer" ManuallyRouted="false" >
+        </InheritanceConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

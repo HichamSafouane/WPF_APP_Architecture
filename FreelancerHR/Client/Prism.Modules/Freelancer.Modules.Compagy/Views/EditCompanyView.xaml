@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="FreelancerHR.Modules.Compagy.Views.EditCompanyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:models="clr-namespace:FreelancerHR.DTO;assembly=FreelancerHR.DTO"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type models:CompagnyDTO}">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label  Grid.Row="0" Grid.Column="0" Margin="5">Name</Label>
+                <Label  Grid.Row="1" Grid.Column="0" Margin="5">AddressLine1</Label>
+                <Label  Grid.Row="2" Grid.Column="0" Margin="5">AddressLine2</Label>
+                <Label  Grid.Row="3" Grid.Column="0" Margin="5">City</Label>
+                <Label  Grid.Row="4" Grid.Column="0" Margin="5">Postal Code</Label>
+                <Label  Grid.Row="5" Grid.Column="0" Margin="5">Email</Label>
+                <TextBox  Grid.Row="0" Grid.Column="1" Margin="5"  Text="{Binding Name}" />
+                <TextBox  Grid.Row="1" Grid.Column="1" Margin="5"  Text="{Binding AddressLine1}" />
+                <TextBox  Grid.Row="2" Grid.Column="1" Margin="5"  Text="{Binding AddressLine2}" />
+                <TextBox  Grid.Row="3" Grid.Column="1" Margin="5"  Text="{Binding City}" />
+                <TextBox  Grid.Row="4" Grid.Column="1" Margin="5"  Text="{Binding PostalCode}" />
+                <TextBox  Grid.Row="5" Grid.Column="1" Margin="5"  Text="{Binding EmailAddress}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Border Padding="5,5,5,5" BorderBrush="#77000000" BorderThickness="1,1,1,1" Margin="5" CornerRadius="12,12,12,12" Width="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="700"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Content="{Binding Compagny, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+            <Button Margin="5"  Content="Back" Command="{Binding BackCommand}" />
+            <Button Margin="5"  Content="Save" Command="{Binding ElementName=gr, Path=DataContext.SaveCommand}" />
+        </StackPanel>
+    </Grid>
+   </Border>
+</UserControl>
